@@ -55,7 +55,7 @@ function! Load_Expanded_View()
 
     for server in s:other_servers()
         if server ==# 'EXPANDEDVIEW'
-            echom "Expanded View Server now showing: " . expand("%:p")
+            echo "Expanded View Server now showing: " . expand("%:p")
 			let exprSetReadonly   = "let g:isRemotelyOpening = 1"
 			let exprUnsetReadonly = "let g:isRemotelyOpening = 1"
 			let openFile = "e " . expand("%:p")
@@ -75,3 +75,5 @@ autocmd! SwapExists *
 autocmd SwapExists * call Open_Read_Only()
 autocmd! WinEnter *
 autocmd WinEnter * call Load_Expanded_View()
+autocmd! BufRead *
+autocmd BufRead * call Load_Expanded_View()
