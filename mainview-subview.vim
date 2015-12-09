@@ -47,6 +47,11 @@ function! Open_Read_Only()
 	endif
 endfunction
 
+function! Update_Buffer()
+    let remexpr = ":e\<cr\>"
+    echom remote_send('EXPANDEDVIEW', remexpr)
+endfunction
+
 function! Go_To_Same_Line()
     if line(".") != g:recordedLine
         let g:recordedLine = line(".")
@@ -88,3 +93,5 @@ autocmd! BufRead *
 autocmd BufRead * call Load_Expanded_View()
 autocmd! CursorMoved *
 autocmd CursorMoved * call Go_To_Same_Line()
+autocmd! BufWritePost *
+autocmd BufWritePost * call Update_Buffer()
