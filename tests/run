@@ -1,4 +1,0 @@
-#! /usr/bin/env bash
-
-./test_two_monitors
-./test_three_monitors

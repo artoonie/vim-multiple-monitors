@@ -1,8 +1,11 @@
 
-multimonitor.vim: better support for vim on two monitors 
+mainview-subview.vim: better support for vim on two monitors 
+This fork allows you to run one vim view as your "main" vim,
+and another session named EXPANDEDVIEW to show a full-screen view
+of the current vim window.
 
 
-Author: Bernt R. Brenna
+Author: Bernt R. Brenna, Armin Samii
 
 
 Instructions
@@ -10,21 +13,9 @@ Instructions
 
 Start a number of vim servers and source the script:
 
-$ vim --servername LEFT
-:source multimonitor.vim
-$ vim --servername RIGHT
-:source multimonitor.vim
-$ vim --servername MIDDLE
-:source multimonitor.vim
+$ vim <filename>
+:source mainview-subview.vim
+$ vim --servername EXPANDEDVIEW
+:source mainview-subview.vim
 
-When vim detects an existing swap file owned by another process, it fires
-the SwapExists autocmd that calls a function (Swap_Exists) that will
-communicates with the other instances and instructs the owning instance to
-open the file (using the Remote_Open function).
-
-Running the test suite
-======================
-
-$ cd tests
-$ ./run
-
+When you move to a different vim window, that  file opens in the subview.

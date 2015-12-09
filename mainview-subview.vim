@@ -19,13 +19,6 @@
 " :source mainview-subview.vim
 "
 " When you move to a different vim window, that  file opens in the subview.
-"
-" Running the test suite TODO outdated
-" ======================
-"
-" $ cd tests
-" $ ./run
-"
 
 function! s:servers()
     return split(serverlist(), "\n")
