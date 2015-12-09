@@ -62,11 +62,17 @@ function! Load_Expanded_View()
 
     for server in s:other_servers()
         if server ==# 'EXPANDEDVIEW'
-            echom "Found the expanded server and trying to open " . expand("%:p")
-            let remexpr = 'Remote_Open("' . expand("%:p") . '")'
-			echom "start"
-            echom remote_expr(server, remexpr)
-			echom "fin"
+            echom "Expanded View Server now showing: " . expand("%:p")
+			let exprSetReadonly   = "let g:isRemotelyOpening = 1"
+			let exprUnsetReadonly = "let g:isRemotelyOpening = 1"
+			let openFile = "e " . expand("%:p")
+            let remexpr = "<Esc>:" . exprSetReadonly . " | " . openFile . " | " . exprUnsetReadonly . "\<cr\>"
+            echom remote_send(server, remexpr)
+
+			" TODO I want to use remote_expr instead of remote_send but it blocks!
+			"
+            " let remexpr = 'Remote_Open("' . expand("%:p") . '")'
+            " echom remote_expr(server, remexpr)
         endif
     endfor
 endfunction
