@@ -47,6 +47,14 @@ function! Open_Read_Only()
 	endif
 endfunction
 
+function! Go_To_Same_Line()
+    if line(".") != g:recordedLine
+        let g:recordedLine = line(".")
+        let remexpr = ":" . g:recordedLine . "\<cr\>"
+        echom remote_send('EXPANDEDVIEW', remexpr)
+    endif
+endfunction
+
 function! Load_Expanded_View()
 	if v:servername ==# 'EXPANDEDVIEW'
 		echom "You should not be opening files here. This is a secondary view."
@@ -71,9 +79,12 @@ function! Load_Expanded_View()
 endfunction
 
 let g:isRemotelyOpening = 0
+let g:recordedLine = 0
 autocmd! SwapExists *
 autocmd SwapExists * call Open_Read_Only()
 autocmd! WinEnter *
 autocmd WinEnter * call Load_Expanded_View()
 autocmd! BufRead *
 autocmd BufRead * call Load_Expanded_View()
+autocmd! CursorMoved *
+autocmd CursorMoved * call Go_To_Same_Line()
